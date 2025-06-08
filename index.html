@@ -228,7 +228,14 @@ function calculateGPA() {
     const ratioQT = parseFloat(cells[5].querySelector("input").value) || 0;
     const ratioCK = 100 - ratioQT;
 
-    const avg10 = ((qt * ratioQT + ck * ratioCK) / 100).toFixed(2);
+    let avg10Raw = (qt * ratioQT + ck * ratioCK) / 100;
+    let firstDecimalDigit = Math.floor(avg10Raw * 10) % 10;
+
+    if (firstDecimalDigit === 9) {
+      avg10Raw = Math.round(avg10Raw);
+    }
+
+    const avg10 = avg10Raw.toFixed(1);
     const avg4 = convertTo4(avg10);
     const letter = convertToLetter(avg10);
 
